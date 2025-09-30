@@ -1,0 +1,34 @@
+//Longest Substring Without Repeating Characters//
+import java.util.*;
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        Set<Character>set=new HashSet<>();
+        int left=0,maxLength=0;
+        for (int right=0; right < s.length();right++) {
+            char ch=s.charAt(right);
+            while(set.contains(ch)){
+                set.remove(s.charAt(left));
+                left++;
+            }
+            set.add(ch);
+            maxLength=Math.max(maxLength,right-left+1);
+        }
+        return maxLength;
+    }
+}
+5.	Max Consecutive Ones III (1004)
+class Solution {
+    public int longestOnes(int[] nums, int k) {
+        int left = 0, maxLen = 0, zerosCount = 0;
+        for (int right = 0; right < nums.length; right++) {
+            if (nums[right] == 0) zerosCount++;
+            while (zerosCount > k) {
+                if (nums[left] == 0) zerosCount--;
+                left++;
+            }
+            maxLen = Math.max(maxLen, right - left + 1);
+        }
+        return maxLen;
+    }
+}
+
