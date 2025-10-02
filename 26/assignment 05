@@ -1,0 +1,89 @@
+//1.Minimum number of arrows to burst ballons//
+class Solution {
+    public int findMinArrowShots(int[][] points) {
+        Arrays.sort(points,Comparator.comparing(a-> (long) a[1]));
+        int curr=points[0][1];
+        int arrow=1;
+        for(int i=1;i<points.length;i++){
+            int start=points[i][0];
+            int end=points[i][1];
+            if(start>curr){
+                arrow++;
+                 curr=end;
+            }
+        }
+        return arrow;
+        
+    }
+}
+//2.Non Overlapping Intervals//
+class Solution {
+    public int eraseOverlapIntervals(int[][] intervals) {
+        Arrays.sort(intervals,Comparator.comparing(a-> (long) a[1]));
+        int count=0;
+        int curr=intervals[0][1];
+        for(int i=1;i<intervals.length;i++){
+            int start=intervals[i][0];
+            int end=intervals[i][1];
+            if(start<curr){
+                count++;
+                
+            }
+            else{
+                curr=end;
+            }
+        }
+        return count;
+        
+    }
+}
+4.Lemonade Change
+class Solution {
+    public boolean lemonadeChange(int[] bills) {
+        int five=0;int ten=0;
+        for(int bill:bills){
+            if(bill==5){
+                five++;
+            }
+            else if(bill==10){
+                if(five==0){
+                    return false;
+                }
+                five--;
+                ten++;
+            }
+            else{
+                if(ten>0 && five>0){
+                    ten--;
+                    five--;
+                }
+                else if(five>=3){
+                    five-=3;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return true;         
+    }
+}
+5.Boats to save people
+class Solution {
+    public int numRescueBoats(int[] people, int limit) {
+        Arrays.sort(people);
+        int n=people.length;
+        int i=0;
+        int j=n-1;
+        int boats=0;
+        while(i<=j){
+            if(people[i]+people[j]<=limit){
+                i++;
+            }           
+            j--;
+            boats++;
+        }
+        
+        return boats;
+    }
+}
