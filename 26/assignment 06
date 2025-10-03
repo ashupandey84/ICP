@@ -1,0 +1,45 @@
+1.word search
+class Solution {
+    static boolean dfs(char[][] board, int r, int c, boolean[][] visited, String word, int index){          
+        visited[r][c]=true;
+        boolean found = dfs(board, r, c+1, visited, word, index+1) ||
+                        dfs(board, r+1, c, visited, word, index+1) ||
+                        dfs(board, r, c-1, visited, word, index+1) ||
+                        dfs(board, r-1, c, visited, word, index+1);
+        visited[r][c] = false;
+        return found;
+    }
+    public boolean exist(char[][] board, String word) {
+        int m = board.length;
+        int n = board[0].length;
+        boolean[][] visited=new boolean[m][n];
+        for(int i=0;i<m;i++){
+            for(int j=0; j<n;j++){
+                if(board[i][j]==word.charAt(0)){
+                  if(dfs(board,i,j,visited,word, 0)) return true;
+                }
+            }
+        }
+        return false;
+    }
+}
+2.Combinations
+class Solution {
+    public List<List<Integer>> combine(int n, int k) {
+        List<List<Integer>> list = new ArrayList<>();
+        generate(1, n, k, new ArrayList<>(), list);
+        return list;
+    }
+    public void generate(int start, int n, int k, List<Integer> temp, List<List<Integer>> list) {
+        if(temp.size() == k) {
+            list.add(new ArrayList<>(temp));
+            return;
+        }
+
+        for(int i = start; i <= n; i++) {
+            temp.add(i);
+            generate(i + 1, n, k, temp, list);
+            temp.remove(temp.size() - 1);
+        }
+    }
+}
