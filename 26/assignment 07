@@ -1,0 +1,54 @@
+1.House Robber
+class Solution {
+    public int rob(int[] nums) {
+        int n=nums.length;
+        if(n==1){
+            return nums[0];
+        }
+        if(n==2){
+            return Math.max(nums[0],nums[1]);
+        }
+        int arr[]=new int[n+1];
+        arr[0]=nums[0];
+        arr[1]=Math.max(nums[0],nums[1]);
+        int maxx=-1;
+        for(int i=2;i<nums.length;i++){
+            arr[i]=Math.max(arr[i-2]+nums[i],arr[i-1]);
+            maxx=Math.max(maxx,arr[i]);
+        }
+        return maxx;        
+    }
+}
+2.//Maximum SubarraySum
+class Solution {
+    public int maxSubArray(int[] nums) {
+         int maxsum = Integer.MIN_VALUE;
+         int currsum=0;
+        
+        for (int i = 0; i < nums.length; i++) {
+            currsum=currsum+nums[i];
+            maxsum = Math.max(maxsum, currsum);              
+            if(currsum<0){
+                currsum=0;
+            }
+        }
+        return maxsum;       
+    }
+}
+3.Unique Paths
+class Solution {
+    public int uniquePaths(int m, int n) {
+        int[][]res=new int[m][n];
+        return dfs(0,0,m,n,res);
+        
+    }
+    public int dfs(int i,int j,int m,int n,int res[][]){
+        if(i>=m || j>=n) return 0;
+        if(i==m-1 && j==n-1) return 1;
+        if(res[i][j]!=0) return res[i][j];
+        res[i][j]=dfs(i+1,j,m,n,res)+dfs(i,j+1,m,n,res);
+        return res[i][j];
+
+        
+    }
+}
